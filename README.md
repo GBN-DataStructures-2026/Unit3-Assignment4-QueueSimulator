@@ -7,14 +7,14 @@ Build a discrete time-step simulation representing an 8-hour workday (480 minute
 
 ## Project Timeline (3 Class Periods)
 
-* **Period 1 (90 mins) — Design & Single-Server Engine**
+* **Period 1 — Design & Single-Server Engine**
   * **First 20–30 mins:** Mandatory Whiteboard / Paper Design Session (Instructor Check-Off required before typing!).
-  * **Remaining 60 mins:** Build `Customer` model, base 480-minute tick loop, arrival generator, and `VERBOSE` console output.
-* **Period 2 (70 mins) — Multi-Server Architectures**
+  * **Remaining time:** Build `Customer` model, base 480-minute tick loop, arrival generator, and `VERBOSE` console output.
+* **Period 2 — Multi-Server Architectures**
   * Expand simulation to $N$ servers.
   * Implement dispatch logic for both **Multi-Queue** and **Single Shared Queue** modes.
   * Refactor tick logic into clean, isolated helper methods.
-* **Period 3 (90 mins) — Statistical Analytics & Final Demonstrations**
+* **Period 3 — Statistical Analytics & Final Demonstrations**
   * Run statistical trials across both queue architectures.
   * Collect metrics (Average Wait, Max Wait, Max Queue Length, Server Utilization).
   * Answer reflection questions and demonstrate live terminal output to the instructor.
