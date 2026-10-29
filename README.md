@@ -9,7 +9,7 @@ Build a discrete time-step simulation representing an 8-hour workday (480 minute
 
 * **Period 1 (90 mins) — Design & Single-Server Engine**
   * **First 20–30 mins:** Mandatory Whiteboard / Paper Design Session (Instructor Check-Off required before typing!).
-  * **Remaining 60 mins:** Build `Customer` model, base 480-minute tick loop, Poisson arrival generator, and `VERBOSE` console output.
+  * **Remaining 60 mins:** Build `Customer` model, base 480-minute tick loop, arrival generator, and `VERBOSE` console output.
 * **Period 2 (70 mins) — Multi-Server Architectures**
   * Expand simulation to $N$ servers.
   * Implement dispatch logic for both **Multi-Queue** and **Single Shared Queue** modes.
@@ -31,7 +31,7 @@ Keyboard-first coding in simulation labs leads to hours of painful debugging. Sp
 1. **Queue Implementation Choice:** Decide as a pair whether you will use Java's built-in `java.util.Queue` interface (e.g., `LinkedList` or `ArrayDeque`) or copy over your own custom `ArrayQueue` / `LinkedQueue` implementation created earlier in Unit 3. *(If using your own ADT, make sure it supports all required methods!)*
 2. **Class Taxonomy:** What classes will you create? (You decide! Will you make a `Server` class? A `QueueManager`? How many classes do you need, and what instance variables will each hold?)
 3. **The "Minute Tick" Flowchart:** Draw the exact order of operations that occurs inside minute tick $t$:
-   * *Do customers arrive before or after servers update their remaining time?*
+   * *Do customers arrive before or after servers update their remaining service time?*
    * *When does a customer's wait time start and stop accumulating?*
 4. **Paper Simulation Trace:** Hand-trace 3 customers through 5 minutes of simulated time on paper:
    * **Customer A:** Arrives minute 1, needs 3 mins service.
@@ -43,12 +43,16 @@ Keyboard-first coding in simulation labs leads to hours of painful debugging. Sp
 
 ## Technical Specifications
 
-### 1. Core Inputs
-* `SIMULATION_MINUTES`: `480` (8-hour workday)
-* `ARRIVAL_PROBABILITY`: Double between `0.0` and `1.0` (Poisson arrival evaluated each minute tick)
-* `MIN_SERVICE_TIME` & `MAX_SERVICE_TIME`: Range of service minutes required per customer
-* `NUM_SERVERS`: Number of cashiers/tellers
-* `VERBOSE`: `boolean` flag controlling console output detail
+### Simulation Parameters
+Configure these as **constants or configuration fields** in your code (no `Scanner` input needed) so you can run test trials quickly:
+
+* `SIMULATION_MINUTES = 480`: Total duration of the simulation (8-hour workday).
+* `ARRIVAL_PROBABILITY = 0.35`: The chance (`0.0` to `1.0`) that a new customer arrives during any given minute tick.*
+* `MIN_SERVICE_TIME = 3` & `MAX_SERVICE_TIME = 10`: Service duration range (in minutes) assigned randomly to each customer.
+* `NUM_SERVERS = 3`: Total cashiers/tellers on duty.
+* `VERBOSE = true`: Debugging flag controlling whether tick-by-tick logs are displayed.
+
+*\*Note: Evaluating a constant arrival probability every minute tick creates stochastic customer flow, statistically known as a Poisson arrival process.*
 
 ---
 
@@ -67,8 +71,8 @@ public class Simulation {
             processArrivals(tick);
             dispatchCustomers(tick);
 
-            // Conditional printing based on flag
-            if (VERBOSE && tick < 30) { // Limit verbose output to first 30 ticks
+            // Print tick-by-tick snapshot only when VERBOSE is enabled
+            if (VERBOSE && tick < 30) { // Limit output to first 30 ticks during debug
                 printState(tick);
             }
         }
@@ -77,6 +81,35 @@ public class Simulation {
         printSummaryStats();
     }
 }
+```
+
+---
+
+## Sample State Display (`printState`)
+
+When `VERBOSE` is set to `true`, `printState(tick)` should output a clean visual snapshot of your system so you can see customers moving through lines in real time:
+
+### Multi-Queue Visual Output Example
+```text
+=== Time: Minute 142 ===
+[Event] Customer #84 arrived -> Joined Queue 2
+
+  Queue 0: [Serving C78 (3m left)] C81 C83
+  Queue 1: [Serving C79 (1m left)] C82
+  Queue 2: [Serving C80 (5m left)] C84
+--------------------------------------------------
+```
+
+### Single Shared Queue Visual Output Example
+```text
+=== Time: Minute 142 ===
+[Event] Customer #86 arrived -> Joined Main Line
+
+  Main Line: [C84 (6m), C85 (3m), C86 (8m)]
+  Teller 0:  Serving C81 (1m remaining)
+  Teller 1:  Serving C82 (4m remaining)
+  Teller 2:  Serving C83 (2m remaining)
+--------------------------------------------------
 ```
 
 ---
@@ -100,7 +133,7 @@ You will run your simulation under two distinct modes using identical arrival pa
 
 ---
 
-## Sample Console Output
+## Sample Final Summary Output
 
 ```text
 ==================================================
