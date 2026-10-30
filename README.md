@@ -5,6 +5,24 @@ Build a discrete time-step simulation representing an 8-hour workday (480 minute
 
 ---
 
+## Day 1 Setup: GitHub & Pair-Programming
+
+You will complete this lab working in pairs on **one computer** using the **Driver/Navigator** model. Before writing any code or drawing on the whiteboard, set up your shared repository:
+
+### Step 1: Partner A Creates the Repository
+1. Click the green **"Use this template"** button at the top of this GitHub page $\rightarrow$ **"Create a new repository"**.
+2. **Repository Name:** Name your repository `QueueSim-PairName` (e.g., `QueueSim-Alex-Sam`).
+3. **Invite Partner B:** 
+   * Go to your new repository's **Settings** tab.
+   * Select **Collaborators** from the left sidebar $\rightarrow$ Click **Add people**.
+   * Enter **Partner B's GitHub username** or email address.
+
+### Step 2: Partner B Accepts Collaboration
+1. Check your email or go to [github.com/notifications](https://github.com/notifications) to accept the invitation.
+2. Partner B now has full access to push commits and access the code at any time.
+
+---
+
 ## Project Timeline (3 Class Periods)
 
 * **Period 1 — Design & Single-Server Engine**
@@ -21,7 +39,7 @@ Build a discrete time-step simulation representing an 8-hour workday (480 minute
 
 ---
 
-## 🛑 MANDATORY PHASE 0: Whiteboard & Paper Design Gate
+## MANDATORY PHASE 0: Whiteboard & Paper Design Gate
 
 > **RULE:** You may NOT open VS Code or write a single line of Java until your pair has drawn out your system blueprint on paper or a whiteboard and received an instructor check-off mark.
 
@@ -126,6 +144,7 @@ You will run your simulation under two distinct modes using identical arrival pa
 
 1. **Multi-Queue Mode (Grocery Store):**
    * Arriving customers evaluate all lines and join the shortest line.
+   * Shortest line is determined by the number of customers waiting, NOT by service time
    * Once in a line, customers remain there until served.
 2. **Single Shared Queue Mode (Bank Snake Line):**
    * All arriving customers enter one central queue.
@@ -160,6 +179,29 @@ Customers Remaining:     1
 CONCLUSION: Single Shared Queue reduced average wait time by 63.1% 
 and reduced max wait time from 38 mins down to 12 mins.
 ```
+
+---
+
+## End-of-Day Code Sharing (Git & GitHub Workflow)
+
+Because you are pair-programming on **one computer**, follow these steps 5 minutes before class ends each day so both partners have access to the latest code on GitHub.
+
+### Git Glossary
+* **Commit:** Saving a local snapshot of your project with a message explaining what you built.
+* **Push:** Uploading your local commits from your computer up to your shared GitHub repository.
+
+### Step-by-Step End-of-Period Checklist
+1. **Save Files:** Make sure all `.java` files in VS Code are saved (`Ctrl+S` / `Cmd+S`).
+2. **Open Terminal:** Open the integrated terminal in VS Code (`Ctrl + ~` or `Terminal -> New Terminal`).
+3. **Stage, Commit, and Push:** Run these three commands in order:
+
+   ```bash
+   git add .
+   git commit -m "Day 1 complete: Phase 0 trace and single-server engine"
+   git push origin main
+   ```
+
+4. **Partner B Verification:** Partner B should log into GitHub on their own device and refresh the repository page to confirm that the latest commit and updated files appear!
 
 ---
 
